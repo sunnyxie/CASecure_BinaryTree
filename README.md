@@ -24,17 +24,20 @@ def array_sort(arr):
     swap_new(arr, 0, 1)
 
 
-def array_adjust(arr, start_index, max_len):
+def build_heap(arr, start_index, max_len):
     max_index = int(max_len / 2 - 1)
     for i in range(max_index, start_index - 1 , -1):
-        if arr[i] < arr[i*2+1]:
-            swap_new(arr, i*2+1, i)
-            array_adjust(arr, i, max_len)
-            
-        if i*2+2 < max_len and arr[i] < arr[i*2+2]:
-            swap_new(arr, i*2+2, i)
+        largest = i
+        if arr[largest] < arr[i*2+1]:
+            largest= i * 2 + 1
             #array_adjust(arr, i, max_len)
-            array_adjust(arr, i, max_len)
+            
+        if i*2+2 < max_len and arr[largest] < arr[i*2+2]:
+            largest= i * 2 + 2
+
+        if largest != i:
+            swap_new(arr, largest, i)
+            build_heap(arr, i, max_len)
 
 
 if __name__ == "__main__":
